@@ -1,0 +1,344 @@
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>HACK-CRAFT | RTX Hackathon Portal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=VT323&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary-fixed": "#ff928b",
+              "on-tertiary-fixed": "#3a0003",
+              "primary-fixed": "#69f6b8",
+              "tertiary-fixed-dim": "#ff7b74",
+              "secondary-container": "#9000de",
+              "on-primary-fixed": "#00452d",
+              "inverse-surface": "#fcf8f8",
+              "background": "#0e0e0e",
+              "on-primary-container": "#002919",
+              "tertiary": "#ff716a",
+              "on-secondary": "#350056",
+              "primary-dim": "#58e7ab",
+              "on-tertiary": "#490005",
+              "on-secondary-fixed": "#530082",
+              "surface-container-highest": "#262626",
+              "on-secondary-container": "#fff5ff",
+              "secondary": "#c97cff",
+              "outline": "#777575",
+              "on-primary": "#005a3c",
+              "inverse-primary": "#006d4a",
+              "surface-container": "#1a1919",
+              "secondary-fixed": "#e9c4ff",
+              "on-surface": "#ffffff",
+              "on-error-container": "#ffb2b9",
+              "error-dim": "#d73357",
+              "surface-bright": "#2c2c2c",
+              "primary": "#69f6b8",
+              "on-secondary-fixed-variant": "#7c00c0",
+              "secondary-dim": "#aa30fa",
+              "surface-container-high": "#201f1f",
+              "on-error": "#490013",
+              "primary-container": "#06b77f",
+              "secondary-fixed-dim": "#e1b2ff",
+              "surface-dim": "#0e0e0e",
+              "on-background": "#ffffff",
+              "on-tertiary-container": "#1f0001",
+              "inverse-on-surface": "#565554",
+              "surface-tint": "#69f6b8",
+              "surface-variant": "#262626",
+              "surface-container-lowest": "#000000",
+              "error-container": "#a70138",
+              "error": "#ff6e84",
+              "tertiary-dim": "#ff716a",
+              "surface": "#0e0e0e",
+              "on-tertiary-fixed-variant": "#79000e",
+              "surface-container-low": "#131313",
+              "outline-variant": "#494847",
+              "tertiary-container": "#fd4e4d",
+              "primary-fixed-dim": "#58e7ab",
+              "on-surface-variant": "#adaaaa",
+              "on-primary-fixed-variant": "#006544"
+            },
+            fontFamily: {
+              "pixel": ["VT323", "monospace"],
+              "headline": ["Space Grotesk"],
+              "body": ["Manrope"],
+              "label": ["Manrope"]
+            },
+            borderRadius: {"DEFAULT": "0px", "lg": "0px", "xl": "0px", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .pixel-text {
+            font-family: 'Space Grotesk', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: -0.05em;
+        }
+        .glass-panel {
+            background: rgba(38, 38, 38, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .rtx-glow-primary {
+            box-shadow: 0 0 25px rgba(105, 246, 184, 0.3);
+        }
+        .rtx-glow-secondary {
+            box-shadow: 0 0 30px rgba(201, 124, 255, 0.4);
+        }
+        .parallax-bg {
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Dynamic Pixel Bubbles */
+        .pixel-bubble {
+            position: fixed;
+            background: rgba(105, 246, 184, 0.1);
+            border: 1px solid rgba(105, 246, 184, 0.2);
+            pointer-events: none;
+            z-index: 5;
+            animation: float-pixel linear infinite;
+        }
+        @keyframes float-pixel {
+            0% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.3; }
+            90% { opacity: 0.3; }
+            100% { transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(360deg); opacity: 0; }
+        }
+
+        /* Ender Dragon Animation */
+        .ender-dragon {
+            position: fixed;
+            top: 10%;
+            right: 5%;
+            width: 120px;
+            z-index: 10;
+            filter: drop-shadow(0 0 15px rgba(201, 124, 255, 0.4));
+            animation: dragon-soar 20s ease-in-out infinite;
+            pointer-events: none;
+        }
+        @keyframes dragon-soar {
+            0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            25% { transform: translate(-50px, 30px) scale(1.1) rotate(-5deg); }
+            50% { transform: translate(-100px, -20px) scale(0.9) rotate(5deg); }
+            75% { transform: translate(-30px, 60px) scale(1.05) rotate(-2deg); }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body selection:bg-primary selection:text-on-primary" data-mode="connect">
+<!-- Dynamic Background Elements -->
+<div class="fixed inset-0 pointer-events-none overflow-hidden z-0" id="dynamic-bg">
+<!-- Pixel Bubbles will be injected via JS or hardcoded for efficiency -->
+<div class="pixel-bubble w-8 h-8" style="top: 20%; left: 10%; --tw-translate-x: 50vw; --tw-translate-y: -20vh; animation-duration: 25s;"></div>
+<div class="pixel-bubble w-12 h-12" style="top: 80%; left: 15%; --tw-translate-x: 20vw; --tw-translate-y: -80vh; animation-duration: 30s; animation-delay: -5s;"></div>
+<div class="pixel-bubble w-6 h-6" style="top: 50%; left: 80%; --tw-translate-x: -40vw; --tw-translate-y: -30vh; animation-duration: 22s; animation-delay: -10s;"></div>
+<div class="pixel-bubble w-10 h-10" style="top: 30%; left: 60%; --tw-translate-x: -20vw; --tw-translate-y: 50vh; animation-duration: 35s; animation-delay: -15s;"></div>
+<div class="pixel-bubble w-4 h-4" style="top: 70%; left: 40%; --tw-translate-x: 30vw; --tw-translate-y: -40vh; animation-duration: 18s; animation-delay: -2s;"></div>
+<div class="pixel-bubble w-14 h-14" style="top: 10%; left: 90%; --tw-translate-x: -70vw; --tw-translate-y: 60vh; animation-duration: 40s; animation-delay: -8s;"></div>
+</div>
+<!-- Animated Ender Dragon -->
+<div class="ender-dragon">
+<img alt="Ender Dragon" class="w-full h-auto opacity-80" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgQIDIb1LRj7uBEMrBJCeswTUNMRTjQCjt6axoVDacGSddp13IPIg_amrrg-DOBlP5MXV7gtFGW6Chy8uYzVA6qHL-wyre4CtN0QHFZhFVHV6ThCfMosLk3XuKf1oZ1IZYfjTOlentrI8okRBl97jOLUB-C0laX1o4t79TlJYftD7Px9Greo2WMLmSgTbw03XeEqihPGRLYH7jzj7MAQwTQYM8kr0c7nxd9QZ0uBXpW5yHi_vf7FfrmCoZWJwIN5nPbyK3Vf6l8mk"/>
+</div>
+<!-- TopAppBar Shell -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-8 py-4 bg-surface/60 backdrop-blur-md dark:bg-black/60 shadow-[0_0_20px_rgba(105,246,184,0.15)]">
+<div class="text-2xl font-black text-[#69f6b8] drop-shadow-[0_0_10px_rgba(105,246,184,0.5)] font-['Space_Grotesk'] tracking-tighter uppercase">
+        HACK-CRAFT
+    </div>
+<nav class="hidden md:flex gap-8 items-center">
+<a class="font-['Space_Grotesk'] tracking-tighter uppercase text-[#69f6b8] border-b-2 border-[#69f6b8] pb-1" href="#">BIOMES</a>
+<a class="font-['Space_Grotesk'] tracking-tighter uppercase text-white/70 hover:text-white transition-colors" href="#">BLOCKS</a>
+<a class="font-['Space_Grotesk'] tracking-tighter uppercase text-white/70 hover:text-white transition-colors" href="#">INVENTORY</a>
+<a class="font-['Space_Grotesk'] tracking-tighter uppercase text-white/70 hover:text-white transition-colors" href="#">FAQ</a>
+</nav>
+<button class="bg-primary text-on-primary font-headline font-bold px-6 py-2 active:translate-y-[2px] transition-all duration-200 rtx-glow-primary uppercase tracking-tighter">
+        JOIN SERVER
+    </button>
+</header>
+<!-- SideNavBar (Villager Toggle Shell) -->
+<div class="fixed bottom-8 right-8 z-[60] flex flex-col items-center gap-4">
+<div class="bg-[#201f1f]/80 backdrop-blur-xl w-16 h-48 flex flex-col items-center justify-around py-4 shadow-[0_0_30px_rgba(201,124,255,0.3)]">
+<button class="w-10 h-10 flex items-center justify-center bg-[#c97cff] text-black scale-110 active:scale-95 duration-100 transition-transform">
+<span class="material-symbols-outlined" data-icon="light_mode">light_mode</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center bg-[#131313] text-white/50 hover:scale-105 active:scale-95 duration-100 transition-transform">
+<span class="material-symbols-outlined" data-icon="brightness_3">brightness_3</span>
+</button>
+<div class="flex flex-col items-center">
+<img alt="Villager" class="w-8 h-8 mb-1" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0dvkvRSdvtkxGOYbgHcWCWN5hkMoDLMuOFdCyUce71azEjJpH_af4yfGWD0rYEx4r4wBoTB2ZIP7yiqf0BdR2U0ZOj9_tgEmZbtD7dBtR2r2lDpxX4Q57t4XjPbjjcS0D3Zw57PKXXzem4dPLku3LYMgocr22GT3YJFdGUcojMEKmww0uTfLXBSjXuqUTlrhRZmSQ5hH9Z91d3ghFo4UB0E5Lau0OzJdxNUbvE0V9QnDreNoIqa8PrWbXuiEQBdaK_VyS29FpXvo"/>
+<span class="font-['Space_Grotesk'] text-[10px] font-bold text-[#c97cff] uppercase tracking-tighter">MODE</span>
+</div>
+</div>
+</div>
+<main class="relative z-10">
+<!-- Hero Section -->
+<section class="relative h-[1024px] flex flex-col items-center justify-center overflow-hidden pt-16 parallax-bg" data-alt="cinematic wide shot of a blocky pixelated lush forest biome at sunrise with volumetric light rays and mist between squared trees" data-stitch-vh="h-[1024px]===h-screen" style="background-image: linear-gradient(to bottom, rgba(14, 14, 14, 0.4), rgba(14, 14, 14, 0.9)), url('https://lh3.googleusercontent.com/aida-public/AB6AXuCK06Go38AqFr0HfKNNaUfdLwczc4tcIbSK2UtSiG8tJtop_jW58edrkGVcn377ttRPq0NDg42NvKO_yyAzQnfbvSZ9XxjiNaHeqPJPXG1-KXdm24zIV-j5_elk7WgdD9f47kuT9SOAc6leS780sIYBb78v4DEXIBvFV07S-D-fnV5mKcCFXtgNMMywidhOFYrGuhGJNS_lWkQBCGX7xEo_0UNr4fR5jAj68HkK2WQMuDFmyIsVCgpguBCSXPdoAjR3Cl7Jyd16FEI');">
+<div class="relative z-10 text-center px-4">
+<h1 class="text-7xl md:text-9xl font-black text-primary drop-shadow-[0_0_30px_rgba(105,246,184,0.6)] tracking-tighter uppercase mb-2 font-pixel">
+                HACK-CRAFT
+            </h1>
+<div class="inline-block bg-[#ffff00] text-[#333300] font-headline font-bold px-4 py-1 -rotate-12 animate-pulse shadow-[4px_4px_0px_#888800] absolute -top-8 -right-12 md:-right-24 md:text-xl" id="splash-tag">
+                Now with 64-stack of features!
+            </div>
+<p class="text-xl md:text-2xl text-on-surface-variant font-medium tracking-widest uppercase mb-8 opacity-80">
+                The Ultimate RTX Voxel Hackathon Experience
+            </p>
+<div class="flex flex-wrap gap-6 justify-center">
+<button class="group relative px-10 py-4 bg-primary text-on-primary font-black text-xl tracking-tighter uppercase rtx-glow-primary transition-all hover:translate-y-[-4px] active:translate-y-[2px]">
+                    JOIN GAME
+                    <div class="absolute inset-x-0 bottom-[-4px] h-[4px] bg-on-primary-container group-hover:h-0 transition-all"></div>
+</button>
+<button class="px-10 py-4 border-2 border-primary text-primary font-black text-xl tracking-tighter uppercase hover:bg-primary/10 transition-all">
+                    VIEW MAP
+                </button>
+</div>
+</div>
+<!-- Floating Block Particles -->
+<div class="absolute inset-0 pointer-events-none opacity-30">
+<div class="absolute top-1/4 left-1/4 w-12 h-12 bg-primary/20 glass-panel animate-bounce" style="animation-duration: 3s"></div>
+<div class="absolute bottom-1/3 right-1/4 w-16 h-16 bg-secondary/20 glass-panel animate-bounce" style="animation-duration: 4s"></div>
+<div class="absolute top-1/2 right-10 w-8 h-8 bg-tertiary/20 glass-panel animate-bounce" style="animation-duration: 5s"></div>
+</div>
+</section>
+<!-- Biome Overview (About) -->
+<section class="py-24 px-8 md:px-24 bg-surface-container-low/50 backdrop-blur-sm relative">
+<div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+<div class="md:col-span-5">
+<h2 class="text-5xl font-black text-primary font-headline tracking-tighter uppercase mb-6 leading-none">
+                    CHOOSE YOUR <br/><span class="text-white">BIOME</span>
+</h2>
+<p class="text-on-surface-variant text-lg leading-relaxed mb-8">
+                    Explore three distinct development territories. Whether you're mining data in the deep dark or building cloud-native fortresses, there's a chunk for every builder.
+                </p>
+<div class="flex gap-4">
+<div class="w-16 h-16 bg-surface-container-high flex items-center justify-center border-b-4 border-primary">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="grid_view">grid_view</span>
+</div>
+<div class="w-16 h-16 bg-surface-container-high flex items-center justify-center border-b-4 border-secondary">
+<span class="material-symbols-outlined text-secondary text-3xl" data-icon="architecture">architecture</span>
+</div>
+<div class="w-16 h-16 bg-surface-container-high flex items-center justify-center border-b-4 border-tertiary">
+<span class="material-symbols-outlined text-tertiary text-3xl" data-icon="token">token</span>
+</div>
+</div>
+</div>
+<div class="md:col-span-7 grid grid-cols-2 gap-4">
+<div class="glass-panel p-8 aspect-square flex flex-col justify-end group hover:bg-primary/5 transition-all">
+<span class="text-primary text-5xl font-black mb-2 opacity-20 group-hover:opacity-100 transition-opacity">01</span>
+<h3 class="text-2xl font-black text-white uppercase tracking-tighter">PLAINS</h3>
+<p class="text-xs text-on-surface-variant mt-2">Frontend &amp; UX optimization for ultimate player engagement.</p>
+</div>
+<div class="glass-panel p-8 aspect-square flex flex-col justify-end mt-12 group hover:bg-secondary/5 transition-all">
+<span class="text-secondary text-5xl font-black mb-2 opacity-20 group-hover:opacity-100 transition-opacity">02</span>
+<h3 class="text-2xl font-black text-white uppercase tracking-tighter">NETHER</h3>
+<p class="text-xs text-on-surface-variant mt-2">High-intensity backend scaling and database logic.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Themes: 3D Blocks Bento -->
+<section class="py-24 px-8 md:px-24 bg-transparent">
+<h2 class="text-center text-4xl font-black text-white font-headline tracking-tighter uppercase mb-16">TECH STACK BLOCKS</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- AI = Redstone -->
+<div class="glass-panel p-10 border-t-4 border-tertiary relative overflow-hidden group">
+<div class="absolute -right-8 -top-8 w-32 h-32 bg-tertiary/10 rotate-12 group-hover:bg-tertiary/20 transition-all"></div>
+<span class="material-symbols-outlined text-6xl text-tertiary mb-6" data-icon="settings_input_component">settings_input_component</span>
+<h3 class="text-3xl font-black text-white uppercase tracking-tighter mb-4">REDSTONE AI</h3>
+<p class="text-on-surface-variant mb-6">Automate the impossible. Build neural circuits that process data faster than a hopper chain.</p>
+<ul class="space-y-2 text-sm font-bold text-tertiary uppercase tracking-widest">
+<li>• Neural Logic Gates</li>
+<li>• Automated Farming</li>
+<li>• Predictive Mob Pathing</li>
+</ul>
+</div>
+<!-- Web = Crafting Table -->
+<div class="glass-panel p-10 border-t-4 border-primary relative overflow-hidden group">
+<div class="absolute -right-8 -top-8 w-32 h-32 bg-primary/10 rotate-12 group-hover:bg-primary/20 transition-all"></div>
+<span class="material-symbols-outlined text-6xl text-primary mb-6" data-icon="rebase_edit">rebase_edit</span>
+<h3 class="text-3xl font-black text-white uppercase tracking-tighter mb-4">CRAFTING WEB</h3>
+<p class="text-on-surface-variant mb-6">Assemble modular interfaces. 2x2 or 3x3 grid layout mastery for the modern browser.</p>
+<ul class="space-y-2 text-sm font-bold text-primary uppercase tracking-widest">
+<li>• Responsive Inventory</li>
+<li>• Real-time Trading</li>
+<li>• Dynamic Tooltips</li>
+</ul>
+</div>
+<!-- Cloud = Sky Block -->
+<div class="glass-panel p-10 border-t-4 border-secondary relative overflow-hidden group">
+<div class="absolute -right-8 -top-8 w-32 h-32 bg-secondary/10 rotate-12 group-hover:bg-secondary/20 transition-all"></div>
+<span class="material-symbols-outlined text-6xl text-secondary mb-6" data-icon="cloud">cloud</span>
+<h3 class="text-3xl font-black text-white uppercase tracking-tighter mb-4">SKY BLOCK</h3>
+<p class="text-on-surface-variant mb-6">Deploy to the void. Lightweight, isolated environments that scale to infinity.</p>
+<ul class="space-y-2 text-sm font-bold text-secondary uppercase tracking-widest">
+<li>• Serverless Realms</li>
+<li>• Elastic Scaling</li>
+<li>• Void Redundancy</li>
+</ul>
+</div>
+</div>
+</section>
+<!-- Prizes: The Loot Inventory Grid -->
+<section class="py-24 px-8 md:px-24 bg-surface-container-low/50 backdrop-blur-sm">
+<div class="text-center mb-16">
+<h2 class="text-6xl font-black text-white font-headline tracking-tighter uppercase mb-4">THE LOOT</h2>
+<p class="text-secondary font-bold uppercase tracking-[0.3em]">EPIC ENCHANTMENTS INCLUDED</p>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 max-w-6xl mx-auto">
+<!-- Prize Slot 1 -->
+<div class="aspect-square glass-panel p-4 flex flex-col items-center justify-center text-center group transition-all hover:rtx-glow-secondary hover:border-secondary/50">
+<div class="w-16 h-16 bg-surface-container-high mb-4 flex items-center justify-center relative">
+<img alt="Diamond Trophy" class="w-10 h-10 group-hover:scale-110 transition-transform" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0g0_N1T5NuMh1Y0SkY-yAk5yawA1_CsRPNZqhrmWGRcBQdJFOIaV8SXlRvV89zc82JhsXmKevqXrB1d6skrlLt6Q-LYJCSzW1TfvGZGB0a59u10dchSFiT_QcMSaMerxE5H4SEnRrXkDpHpAe3pa_JIgLAJeOA_sWu06pFGXgml4_DANdmnj6vFbYNx4rNIg-UGsJyq8V-PFXPy6RQILRIdNz4NRcMTlxOUVi3NAmxqxnDmnuJKeKadVvY9fIpoHwOXk6I3AX8iM"/>
+<div class="absolute inset-0 bg-secondary/10 animate-pulse"></div>
+</div>
+<span class="text-white font-black uppercase text-xs tracking-tighter">Grand Champion</span>
+<span class="text-secondary text-[10px] mt-1 font-bold">UNBREAKING III</span>
+</div>
+<!-- Prize Slot 2 -->
+<div class="aspect-square glass-panel p-4 flex flex-col items-center justify-center text-center group transition-all hover:rtx-glow-primary hover:border-primary/50">
+<div class="w-16 h-16 bg-surface-container-high mb-4 flex items-center justify-center">
+<img alt="Golden Apple" class="w-10 h-10 group-hover:scale-110 transition-transform" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMMbm-f_7Nu7TR5j2vEi9oK9GCcTdMdSanFbN21cxYy6Bu5-xSb6jtKvxVAGrzTRzq-lzPK3NdpUWUI-eh7fqbHZeRcXVtjwglu71hzRqVQlkVoWTFgS9bz7W_zaOfwatdFpt6qWuIaXRGm1y0F5GVFNUhPDxstF8SQsC0Y0WD59GHMTPGSo876FeQK7yFJnW3hUTpk81xJjc0Qs1qvLKShnYUfhK5-0tMYWzJreE3I6CDum3ERY66ULZ4Ws73PuAmNBqn3aw1kKw"/>
+</div>
+<span class="text-white font-black uppercase text-xs tracking-tighter">Community Choice</span>
+<span class="text-primary text-[10px] mt-1 font-bold">REGENERATION II</span>
+</div>
+<!-- Placeholder Slots -->
+<div class="aspect-square glass-panel p-4 flex items-center justify-center border-dashed border-outline/30">
+<span class="material-symbols-outlined text-outline/20 text-4xl" data-icon="add">add</span>
+</div>
+<div class="aspect-square glass-panel p-4 flex items-center justify-center border-dashed border-outline/30">
+<span class="material-symbols-outlined text-outline/20 text-4xl" data-icon="lock">lock</span>
+</div>
+<div class="aspect-square glass-panel p-4 flex items-center justify-center border-dashed border-outline/30">
+<span class="material-symbols-outlined text-outline/20 text-4xl" data-icon="lock">lock</span>
+</div>
+<div class="aspect-square glass-panel p-4 flex items-center justify-center border-dashed border-outline/30">
+<span class="material-symbols-outlined text-outline/20 text-4xl" data-icon="lock">lock</span>
+</div>
+<div class="aspect-square glass-panel p-4 flex items-center justify-center border-dashed border-outline/30">
+<span class="material-symbols-outlined text-outline/20 text-4xl" data-icon="lock">lock</span>
+</div>
+<div class="aspect-square glass-panel p-4 flex items-center justify-center border-dashed border-outline/30">
+<span class="material-symbols-outlined text-outline/20 text-4xl" data-icon="lock">lock</span>
+</div>
+<div class="aspect-square glass-panel p-4 flex items-center justify-center border-dashed border-outline/30">
+<span class="material-symbols-outlined text-outline/20 text-4xl" data-icon="lock">lock</span>
+</div>
+<div class="aspect-square glass-panel p-4 flex items-center justify-center border-dashed border-outline/30">
+<span class="material-symbols-outlined text-outline/20 text-4xl" data-icon="lock">lock</span>
+</div>
+</div>
+</section>
+</main>
+</body></html>
